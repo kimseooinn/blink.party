@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLINK Fan Party São Paulo</title>
+  <style>
+    /* =========================================================
+   BLINK FAN PARTY — Landing Page Stylesheet
+   Conceito: pôster de show + ingresso físico + painel de LED
+   ========================================================= */
+
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+    /* -----------------------------
+      1. DESIGN TOKENS
+   ------------------------------ */
+    :root {
+      /* Cores */
+      --black: #0A0A0D;
+      --black-soft: #121216;
+      --black-card: #17161C;
+      --pink: #FF2E63;
+      --pink-deep: #C81E5C;
+      --pink-glow: rgba(255, 46, 99, 0.35);
+      --cream: #F3EFE9;
+      --gray: #706E78;
+      --gray-line: #2A2933;
+      --gold: #D4AF37;
+      --gold-glow: rgba(212, 175, 55, 0.35);
+
+      /* Tipografia */
+      --font-display: 'Anton', 'Arial Narrow', sans-serif;
+      --font-body: 'Manrope', system-ui, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+
+      /* Escala tipográfica */
+      --fs-hero: clamp(2.75rem, 9vw + 1rem, 6.5rem);
+      --fs-h2: clamp(1.75rem, 4vw + 1rem, 3rem);
+      --fs-h3: clamp(1.15rem, 2vw + 1rem, 1.5rem);
+      --fs-body: clamp(1rem, 0.5vw + 0.9rem, 1.125rem);
+      --fs-small: 0.875rem;
+      --fs-eyebrow: 0.75rem;
+
+      /* Espaçamento */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-24: 6rem;
+
+      /* Layout */
+      --radius-sm: 6px;
+      --radius-md: 14px;
+      --container-max: 1120px;
+      --border-hairline: 1px solid var(--gray-line);
+
+      /* Movimento */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast: 150ms;
+      --dur-base: 300ms;
+    }
+
+    /* -----------------------------
+      2. RESET
+   ------------------------------ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img,
+    picture,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* -----------------------------
+      3. LAYOUT BASE / UTILITÁRIOS
+   ------------------------------ */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: var(--space-6);
+    }
+
+    .section {
+      padding-block: var(--space-16);
+    }
+
+    .section-alt {
+      background-color: var(--black-soft);
+      border-top: var(--border-hairline);
+      border-bottom: var(--border-hairline);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: var(--space-3);
+    }
+
+    .section-title {
+      font-size: var(--fs-h2);
+      color: var(--cream);
+      margin-bottom: var(--space-8);
+      max-width: 20ch;
+    }
+
+    .text-muted {
+      color: var(--gray);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* -----------------------------
+      4. BOTÃO / CTA
+   ------------------------------ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-4) var(--space-8);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      transition: transform var(--dur-fast) var(--ease-out),
+        box-shadow var(--dur-fast) var(--ease-out);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+      color: var(--cream);
+      box-shadow: 0 4px 24px var(--pink-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--pink-glow);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid var(--gray-line);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    /* -----------------------------
+      5. HEADER
+   ------------------------------ */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-6);
+      background: rgba(10, 10, 13, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: var(--border-hairline);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .logo span {
+      color: var(--pink);
+    }
+
+    .header .btn {
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--fs-small);
+    }
+
+    /* -----------------------------
+      6. HERO
+   ------------------------------ */
+    .hero {
+      position: relative;
+      padding-block: var(--space-24) var(--space-16);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      translate: -50% 0;
+      width: 900px;
+      height: 900px;
+      max-width: 180vw;
+      background: radial-gradient(circle, var(--pink-glow) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin-inline: auto;
+    }
+
+    .hero-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 0 auto var(--space-6);
+      border: 3px solid var(--pink);
+      box-shadow: 0 0 40px var(--pink-glow);
+      object-fit: cover;
+    }
+
+    .hero h1 {
+      font-size: var(--fs-hero);
+      color: var(--cream);
+      margin-block: var(--space-4);
+    }
+
+    .hero h1 .highlight {
+      color: var(--pink);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.5vw + 0.7rem, 1.25rem);
+      color: var(--gray);
+      max-width: 46ch;
+      margin-inline: auto;
+      margin-bottom: var(--space-8);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      justify-content: center;
+    }
+
+    /* -----------------------------
+      7. ATIVIDADES
+   ------------------------------ */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .activities-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .activities-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: var(--space-3);
+      }
+    }
+
+    .activity-card {
+      background: var(--black-card);
+      border: var(--border-hairline);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      transition: border-color var(--dur-base) var(--ease-out),
+        transform var(--dur-base) var(--ease-out);
+    }
+
+    .activity-card:hover {
+      border-color: var(--pink);
+      transform: translateY(-4px);
+    }
+
+    .activity-icon {
+      font-size: 1.75rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .activity-card h3 {
+      font-size: var(--fs-h3);
+      margin-bottom: var(--space-2);
+    }
+
+    .activity-card p {
+      color: var(--gray);
+      font-size: var(--fs-small);
+    }
+
+    /* -----------------------------
+      8. LINE-UP
+   ------------------------------ */
+    .lineup {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    .lineup-item {
+      display: grid;
+      grid-template-columns: 88px auto;
+      gap: var(--space-6);
+      padding-block: var(--space-6);
+      border-bottom: var(--border-hairline);
+    }
+
+    .lineup-item:first-child {
+      border-top: var(--border-hairline);
+    }
+
+    .lineup-time {
+      font-family: var(--font-mono);
+      font-size: var(--fs-small);
+      color: var(--pink);
+      padding-top: 0.2em;
+    }
+
+    .lineup-title {
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--cream);
+      margin-bottom: var(--space-1);
+    }
+
+    .lineup-desc {
+      color: var(--gray);
+      font-size: var(--fs-small);
+    }
+
+    /* -----------------------------
+      9. DEPOIMENTOS
+   ------------------------------ */
+    .testimonials {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    @media (min-width: 720px) {
+      .testimonials {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .testimonial-card {
+      background: var(--black-card);
+      border: var(--border-hairline);
+      border-radius: var(--radius-md);
+      padding: var(--space-8);
+      position: relative;
+    }
+
+    .testimonial-quote {
+      font-size: 1.05rem;
+      color: var(--cream);
+      margin-bottom: var(--space-6);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      font-size: var(--fs-small);
+    }
+
+    .testimonial-role {
+      font-size: var(--fs-eyebrow);
+      color: var(--gray);
+    }
+
+    .impact-metric {
+      text-align: center;
+      margin-top: var(--space-12);
+      padding-top: var(--space-12);
+      border-top: var(--border-hairline);
+    }
+
+    .impact-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--pink);
+    }
+
+    .impact-label {
+      font-family: var(--font-mono);
+      font-size: var(--fs-small);
+      color: var(--gray);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* -----------------------------
+      10. INGRESSOS
+   ------------------------------ */
+    .tickets-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+      max-width: 880px;
+      margin-inline: auto;
+    }
+
+    @media (min-width: 720px) {
+      .tickets-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .ticket-card {
+      position: relative;
+      background: var(--black-card);
+      border: var(--border-hairline);
+      border-radius: var(--radius-md);
+      padding: var(--space-8);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      --perf-size: 14px;
+      mask-image:
+        radial-gradient(circle var(--perf-size) at calc(100% - 0px) 15%, transparent 98%, black 100%),
+        radial-gradient(circle var(--perf-size) at calc(100% - 0px) 50%, transparent 98%, black 100%),
+        radial-gradient(circle var(--perf-size) at calc(100% - 0px) 85%, transparent 98%, black 100%),
+        linear-gradient(black, black);
+      mask-composite: intersect;
+      -webkit-mask-composite: source-in;
+    }
+
+    .ticket-card.is-vip {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold), 0 8px 32px var(--gold-glow);
+    }
+
+    .ticket-badge {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-8);
+      font-family: var(--font-mono);
+      font-size: var(--fs-eyebrow);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+
+    .ticket-name {
+      font-size: var(--fs-h3);
+      color: var(--cream);
+    }
+
+    .ticket-price {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--pink);
+    }
+
+    .ticket-price small {
+      font-family: var(--font-mono);
+      font-size: var(--fs-small);
+      color: var(--gray);
+      text-transform: none;
+    }
+
+    .ticket-features {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      font-size: var(--fs-small);
+      color: var(--cream);
+    }
+
+    .ticket-features li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .ticket-features li::before {
+      content: '✦';
+      color: var(--pink);
+      flex-shrink: 0;
+    }
+
+    .is-vip .ticket-features li::before {
+      color: var(--gold);
+    }
+
+    /* -----------------------------
+      11. URGÊNCIA / COUNTDOWN
+   ------------------------------ */
+    .urgency {
+      text-align: center;
+    }
+
+    .stock-bar-wrap {
+      max-width: 480px;
+      margin: 0 auto var(--space-8);
+    }
+
+    .stock-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: var(--fs-eyebrow);
+      color: var(--gray);
+      margin-bottom: var(--space-2);
+    }
+
+    .stock-label strong {
+      color: var(--pink);
+    }
+
+    .stock-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--gray-line);
+      overflow: hidden;
+    }
+
+    .stock-bar-fill {
+      height: 100%;
+      width: 82%;
+      background: linear-gradient(90deg, var(--pink-deep), var(--pink));
+      border-radius: 999px;
+    }
+
+    .countdown {
+      display: inline-flex;
+      gap: var(--space-4);
+      background: var(--black);
+      border: 1px solid var(--gray-line);
+      border-radius: var(--radius-md);
+      padding: var(--space-6) var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(to bottom,
+          rgba(255, 255, 255, 0.025) 0px,
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px,
+          transparent 3px);
+      pointer-events: none;
+    }
+
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 64px;
+    }
+
+    .countdown-value {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: var(--pink);
+      text-shadow: 0 0 16px var(--pink-glow);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-unit-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: var(--space-1);
+    }
+
+    .countdown-sep {
+      font-family: var(--font-mono);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: var(--gray-line);
+      align-self: flex-start;
+      padding-top: 0.1em;
+    }
+
+    /* -----------------------------
+      12. FAQ
+   ------------------------------ */
+    .faq-list {
+      max-width: 720px;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .faq-item {
+      background: var(--black-card);
+      border: var(--border-hairline);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: var(--space-6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-icon {
+      font-family: var(--font-mono);
+      color: var(--pink);
+      flex-shrink: 0;
+      transition: transform var(--dur-base) var(--ease-out);
+    }
+
+    .faq-item[open] .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 var(--space-6) var(--space-6);
+      color: var(--gray);
+      font-size: var(--fs-small);
+    }
+
+    /* -----------------------------
+      13. CTA FINAL
+   ------------------------------ */
+    .cta-final {
+      text-align: center;
+      background: radial-gradient(ellipse at center, var(--pink-glow) 0%, transparent 70%);
+    }
+
+    .cta-final h2 {
+      font-size: var(--fs-h2);
+      margin-bottom: var(--space-4);
+    }
+
+    .cta-final p {
+      color: var(--gray);
+      max-width: 42ch;
+      margin-inline: auto;
+      margin-bottom: var(--space-8);
+    }
+
+    /* -----------------------------
+      14. FOOTER
+   ------------------------------ */
+    .footer {
+      border-top: var(--border-hairline);
+      padding-block: var(--space-8);
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: var(--fs-eyebrow);
+      color: var(--gray);
+      max-width: 60ch;
+      margin-inline: auto;
+    }
+
+    .footer .disclaimer {
+      margin-top: var(--space-2);
+      color: var(--gray);
+    }
+
+    /* Responsividade para o hero */
+    @media (max-width: 768px) {
+      .hero-image {
+        width: 140px;
+        height: 140px;
+      }
+      .countdown {
+        padding: var(--space-4);
+        gap: var(--space-2);
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .countdown-unit {
+        min-width: 50px;
+      }
+      .countdown-sep {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="logo">BLINK<span>PARTY</span></div>
+    <a href="#ingressos" class="btn btn-primary">Garantir ingresso</a>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-content">
+      <img
+      src="https://i.pinimg.com/736x/1b/48/38/1b483831d3c35346bbb0afc3186b87c8.jpg"
+      alt="BLACKPINK"
+      class="hero-image"
+      />
+      <p class="eyebrow">Evento não-oficial de fãs · São Paulo</p>
+      <h1>O reencontro que toda <span class="highlight">BLINK</span> esperava</h1>
+      <p class="hero-sub">Uma noite inteira dedicada ao BLACKPINK: listening party, dança cover, quiz e sorteio de colecionáveis. Feito por fãs, para fãs.</p>
+      <div class="hero-actions">
+        <a href="#ingressos" class="btn btn-primary">Quero meu ingresso</a>
+        <a href="#lineup" class="btn btn-ghost">Ver programação</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ATIVIDADES ===== -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">O que rola no evento</p>
+      <h2 class="section-title">Cinco motivos pra separar essa data</h2>
+      <div class="activities-grid">
+        <div class="activity-card">
+          <div class="activity-icon">🎧</div>
+          <h3>Listening Party</h3>
+          <p>Discografia completa, do som alto, com quem também sabe cada verso.</p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">💃</div>
+          <h3>Dance Cover</h3>
+          <p>Concurso de cover com premiação para o grupo mais afiado da pista.</p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">🧠</div>
+          <h3>Quiz BLINK</h3>
+          <p>Perguntas sobre a trajetória do grupo. Só bias de verdade passa dessa fase.</p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">📸</div>
+          <h3>Photo Zone</h3>
+          <p>Cenário temático para registrar a noite em boa qualidade.</p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">🎁</div>
+          <h3>Sorteio</h3>
+          <p>Photocards, álbuns e pôsteres sorteados ao longo da festa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LINEUP ===== -->
+  <section id="lineup" class="section section-alt">
+    <div class="container">
+      <p class="eyebrow">Programação</p>
+      <h2 class="section-title" style="margin-inline:auto; text-align:center;">Como a noite vai rolar</h2>
+      <div class="lineup">
+        <div class="lineup-item">
+          <span class="lineup-time">19H</span>
+          <div>
+            <p class="lineup-title">Abertura + Photo Zone</p>
+            <p class="lineup-desc">Recepção, credenciamento e primeiras fotos.</p>
+          </div>
+        </div>
+        <div class="lineup-item">
+          <span class="lineup-time">20H</span>
+          <div>
+            <p class="lineup-title">Listening Party</p>
+            <p class="lineup-desc">Discografia completa em sequência, som no talo.</p>
+          </div>
+        </div>
+        <div class="lineup-item">
+          <span class="lineup-time">21H30</span>
+          <div>
+            <p class="lineup-title">Quiz BLINK</p>
+            <p class="lineup-desc">Disputa por prêmios com perguntas sobre o grupo.</p>
+          </div>
+        </div>
+        <div class="lineup-item">
+          <span class="lineup-time">22H15</span>
+          <div>
+            <p class="lineup-title">Concurso de Dance Cover</p>
+            <p class="lineup-desc">Apresentações e votação ao vivo do público.</p>
+          </div>
+        </div>
+        <div class="lineup-item">
+          <span class="lineup-time">23H</span>
+          <div>
+            <p class="lineup-title">Sorteio + Encerramento</p>
+            <p class="lineup-desc">Sorteio dos colecionáveis e última rodada de música.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DEPOIMENTOS ===== -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Quem já foi, confirma</p>
+      <h2 class="section-title">O que as BLINKs estão dizendo</h2>
+      <div class="testimonials">
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"Fui sozinha na primeira edição e saí com um grupo pra maratonar comeback junto. Melhor decisão do ano."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"></div>
+            <div>
+              <p class="testimonial-name">Camila R.</p>
+              <p class="testimonial-role">Participante, edição de 2025</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"O quiz é difícil de verdade. Preparei o bias list inteiro e ainda assim suei pra passar da segunda fase."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"></div>
+            <div>
+              <p class="testimonial-name">Lucas T.</p>
+              <p class="testimonial-role">Participante, edição de 2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="impact-metric">
+        <p class="impact-number">1.200+</p>
+        <p class="impact-label">BLINKs que já passaram pelas edições anteriores</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INGRESSOS ===== -->
+  <section id="ingressos" class="section section-alt">
+    <div class="container">
+      <p class="eyebrow" style="text-align:center; display:block;">Ingressos</p>
+      <h2 class="section-title" style="margin-inline:auto; text-align:center;">Escolha seu lote</h2>
+      <div class="tickets-grid">
+        <div class="ticket-card">
+          <p class="ticket-name">Lote BLINK</p>
+          <p class="ticket-price">R$ 60<small>/pessoa</small></p>
+          <ul class="ticket-features">
+            <li>Acesso completo ao evento</li>
+            <li>Participação no quiz e no cover</li>
+            <li>1 número na roleta de sorteio</li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-block">Garantir Lote BLINK</a>
+        </div>
+        <div class="ticket-card is-vip">
+          <span class="ticket-badge">VIP</span>
+          <p class="ticket-name">Lote VIP</p>
+          <p class="ticket-price">R$ 110<small>/pessoa</small></p>
+          <ul class="ticket-features">
+            <li>Tudo do Lote BLINK</li>
+            <li>Fila prioritária de entrada</li>
+            <li>3 números na roleta de sorteio</li>
+            <li>Kit exclusivo de brindes</li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-block">Garantir Lote VIP</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== URGÊNCIA / VAGAS ===== -->
+  <section class="section urgency">
+    <div class="container">
+      <p class="eyebrow">Vagas limitadas</p>
+      <h2 class="section-title" style="margin-inline:auto;">O espaço só tem 300 lugares</h2>
+
+      <div class="stock-bar-wrap">
+        <div class="stock-label">
+          <span>Ingressos vendidos</span>
+          <strong>246 / 300</strong>
+        </div>
+        <div class="stock-bar">
+          <div class="stock-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="countdown" role="timer" aria-label="Tempo restante até o evento">
+        <div class="countdown-unit">
+          <span class="countdown-value">12</span>
+          <span class="countdown-unit-label">Dias</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-value">08</span>
+          <span class="countdown-unit-label">Horas</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-value">42</span>
+          <span class="countdown-unit-label">Min</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-value">17</span>
+          <span class="countdown-unit-label">Seg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section section-alt">
+    <div class="container">
+      <p class="eyebrow" style="text-align:center; display:block;">Dúvidas frequentes</p>
+      <h2 class="section-title" style="margin-inline:auto; text-align:center;">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>É um evento oficial da YG Entertainment?<span class="faq-icon">+</span></summary>
+          <p class="faq-answer">Não. A BLINK Fan Party é um evento organizado por fãs, sem qualquer vínculo oficial com a YG Entertainment ou com as integrantes do BLACKPINK.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Qual a política de reembolso?<span class="faq-icon">+</span></summary>
+          <p class="faq-answer">Reembolso integral em até 7 dias após a compra. Após esse prazo, o ingresso pode ser transferido para outra pessoa.</p>
+        </details>
+        <details class="faq-item">
+          <summary>O que eu preciso levar?<span class="faq-icon">+</span></summary>
+          <p class="faq-answer">Documento com foto e o QR code do ingresso (impresso ou no celular). Itens de fandom são muito bem-vindos.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Tem idade mínima?<span class="faq-icon">+</span></summary>
+          <p class="faq-answer">O evento é livre, mas menores de 16 anos devem estar acompanhados de um responsável.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA FINAL ===== -->
+  <section class="section cta-final">
+    <div class="container">
+      <h2>Sua próxima comeback night começa aqui</h2>
+      <p>246 BLINKs já garantiram o lugar delas. Restam 54 vagas.</p>
+      <a href="#ingressos" class="btn btn-primary">Garantir meu ingresso agora</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>BLINK Fan Party é um evento independente, organizado por fãs para fãs.</p>
+    <p class="disclaimer">Sem vínculo oficial com YG Entertainment, BLACKPINK ou suas integrantes.</p>
+  </footer>
+
+</body>
+</html>
